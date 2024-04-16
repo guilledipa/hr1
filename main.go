@@ -24,6 +24,7 @@ func camelcase(s string) int32 {
 	for i, c := range s {
 		if i == 0 {
 			cw++
+			continue
 		}
 		if unicode.IsUpper(c) {
 			cw++
