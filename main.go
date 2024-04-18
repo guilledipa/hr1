@@ -33,6 +33,30 @@ func camelcase(s string) int32 {
 	return cw
 }
 
+func caesarCipher(s string, k int32) string {
+	if k < 0 || k > 100 {
+		return 0
+	}
+	var encrypted string
+	var shifted int
+	asciiZ := int('z')
+	asciiA := int('a')
+	for _, c := range s {
+		if !unicode.IsLetter(c) {
+			encrypted += string(c)
+			continue
+		}
+		ascii := int(c)
+		if ascii+int(k) > asciiZ {
+			shifted = asciiA + (ascii + int(k) - asciiZ) - 1
+		} else {
+			shifted = ascii + int(k)
+		}
+		encrypted += string(shifted)
+	}
+	return encrypted
+}
+
 func main() {
 	reader := bufio.NewReaderSize(os.Stdin, 16*1024*1024)
 	stdout, err := os.Create(os.Getenv("OUTPUT_PATH"))
